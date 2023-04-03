@@ -1,5 +1,6 @@
 ﻿
-# GamemodeBase - MySQL
+﻿
+# GamemodeBase - v1.0
 
 ### How to install?
 1. Download the [database]((https://github.com/KaizerHind/GamemodeBase_MySQL/blob/master/Database/dbserver.sql)), go to [Xampp](http://localhost/phpmyadmin/server_import.php) and create a new clean database, then import the new one.
@@ -25,8 +26,12 @@ Esta es una simple base, contiene **Sistema de Registro**, **Ingreso**, **guarda
     |—— ./include/ <-- Contiene variables comunes y/o enums.
     |——— ./include/Modules/ <-- Almacena las funciones nativas y forwards creados.
     |———— ./include/Functions/ <-- Almacena callbacks simples sin mucho trabajo.
-
+	
+	Esta version contiene muy poca informacion de Registro, por lo cual
+	funciona como base para aprender MySql.
+	Contiene preguntas basicas para registrarte y hacer Spawn en el Servidor.
 ----
+
 # • **English:**
 This is a simple base, it contains a **Registration System**, **Entry**, and **saving of Sex**, **skin** and **score**. The gamemode was developed in a **'Modular'** way, so part of the code is distributed in **./include/**, it should be noted that if someone adds a furniture system or something related to object editing, and they must use the following parameters **OnPlayerPickUpDynamicPickup , OnPlayerSelectDynamicObject, OnPlayerEditDynamicObject,** you should add this in index.pwn, below where the forward and public includes are loaded.
 
@@ -36,4 +41,8 @@ This is a simple base, it contains a **Registration System**, **Entry**, and **s
     |—— ./include/ <-- Contains common variables and/or enums.
     |——— ./include/Modules/ <-- Stores the native functions and forwards created.
     |———— ./include/Functions/ <-- It stores simple callbacks without much work.
+    
+	This version contains very little registry information, so works
+	as a base to learn MySql.
+	Contains basic questions to register and Spawn on the Server.
 ----

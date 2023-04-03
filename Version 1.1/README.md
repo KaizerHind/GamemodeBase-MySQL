@@ -1,4 +1,4 @@
-﻿﻿
+﻿﻿﻿﻿
 # GamemodeBase - MySQL
 
 ### How to install?
