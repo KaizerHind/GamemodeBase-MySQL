@@ -175,7 +175,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	switch(dialogid){
 		case dLogin:
 		{
-			if(response)
+			if(!response) return Kick(playerid);
 			{
 				new megahash[64 + 1];
 				SHA256_PassHash(inputtext, "123h1h23hh", megahash, 64);
@@ -192,7 +192,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			else Kick(playerid);
 		}
         case dRegistro:{
-            if(response)
+            if(!response) return Kick(playerid);
             {
 				SHA256_PassHash(inputtext, "123h1h23hh", PlayerData[playerid][TempHash], 64);
                 ShowPlayerDialog(playerid, dGender, DIALOG_STYLE_MSGBOX, mHeader, ""#CBLANCO"Cuentanos; ¿Eres un Hombre o una Mujer?", "Masculino", "Femenino");
@@ -201,7 +201,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         }
 		case dGender:
 		{
-		    if(response)
+		    if(!response) return Kick(playerid);
 			{
 				PlayerData[playerid][jSexo] = 1;
 				PlayerData[playerid][jRopa] = 46;
@@ -218,7 +218,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		case dEdad:
 		{
 			if(!response) return Kick(playerid);
-			format(stcstring, sizeof(stcstring), ""#C_NAMESV"%s"#CBLANCO"; Solo puedes ingresar "#CROJO"valores numericos"#CBLANCO".\nLa edad minima es de"#CROJO"<13> "#CBLANCO"y la maxima "#CROJO"<85>"#CBLANCO".\n\nPor favor ingresa una "#CROJO"Edad"#CBLANCO" Valida.\n¿Qué "#CROJO"edad "#CBLANCO"tienes? Cuentanos.", PlayerName(playerid), stcstring);
+			format(stcstring, sizeof(stcstring), ""#CNAMESV"%s"#CBLANCO"; Solo puedes ingresar "#CROJO"valores numericos"#CBLANCO".\nLa edad minima es de "#CROJO"<13> "#CBLANCO"y la maxima "#CROJO"<85>"#CBLANCO".\n\nPor favor ingresa una "#CROJO"Edad"#CBLANCO" Valida.\n¿Qué "#CROJO"edad "#CBLANCO"tienes? Cuentanos.", PlayerName(playerid), stcstring);
 		    if(!IsNumeric(inputtext)) return ShowPlayerDialog(playerid, dEdad, DIALOG_STYLE_INPUT, ""#CBLANCO"A Continuación dinos tu edad.\t", stcstring, "Aceptar", "Cancelar");
 			if(strval(inputtext) < 13) return ShowPlayerDialog(playerid, dEdad, DIALOG_STYLE_INPUT, ""#CBLANCO"A Continuación dinos tu edad.\t", stcstring, "Aceptar", "Cancelar");
 			if(VarAge < 13 || VarAge > 85) return ShowPlayerDialog(playerid, dEdad, DIALOG_STYLE_INPUT, ""#CBLANCO"A Continuación dinos tu edad.\t", stcstring, "Aceptar", "Cancelar");
