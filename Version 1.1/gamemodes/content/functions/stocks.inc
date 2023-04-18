@@ -75,11 +75,11 @@ stock LoadCutScene(playerid)
 	fExtra[1] = CreateObject(1459, 2084.36426, -1123.13074, 24.74886,   0.0, -4.0, 90.0);
 	fExtra[2] = CreateObject(1437, 2090.55054, -1123.87634, 25.07072,   -10.0, 0.0, -90.0);
     /*# Simulacion de Extinguidores en mano [1] #*/
-    FireObj[5] = CreateObject(366, 2086.34570, -1119.63647, 26.09930, 0.0, 10.0, -26.0);
-    FireObj[6] = CreateObject(18687, 2086.7922, -1119.7451, 26.1624, 0.0, 0.0, 0.0);
+    FireObj[5] = CreateObject(366, 2086.674560, -1119.964355, 26.212469, 0.0, 10.0, -26.0);
+    FireObj[6] = CreateObject(18687, 2087.482421, -1119.915039, 24.813987, 14.700002, 0.0, -90.700004);
     /*# Simulacion de Extinguidores en mano [2] #*/
-	FireObj[7] = CreateObject(366, 2086.67163, -1125.47974, 25.99930, 0.0, 10.0, 26.0);
-	FireObj[8] = CreateObject(18687, 2087.04077, -1125.19336, 26.06380, 0.0, 0.0, 0.0);
+	FireObj[7] = CreateObject(366, 2086.875244, -1125.308837, 26.274374, 0.0, 10.0, 26.0);
+	FireObj[8] = CreateObject(18687, 2087.692871, -1125.279907, 24.869781, 16.200000, 0.0, -91.999946);
 	/*# Unidad de bombero en el incendio [2] #*/
 	VehEngine[0] = CreateVehicle(407, 2076.9529, -1115.2106, 24.2980, 180.0, 3, 1, -1);
 	return 1;

@@ -2,7 +2,10 @@
 #define dLogin          2
 #define dGender         3
 #define dEdad           4
-
+#define dAlertCountry   5
+#define dCountry        6
+#define dCountryAMS     7
+#define dCountryAMN     8
 
 #define dFinish         99
 

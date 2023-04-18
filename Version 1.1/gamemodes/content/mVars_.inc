@@ -1,4 +1,5 @@
-enum jInfo
+/*# Informacion del Jugador #*/
+enum jInfo 
 {
     ID,
     jName[25],
@@ -7,10 +8,11 @@ enum jInfo
     jRopa,
     jSexo,
     jEdad,
-    jScore
+    jScore,
+    jCiudad
 }
 
-new
+new /*# Global Vars #*/
 	MySQL:DB,
 	global_str[1024],
     hash[64 + 1];
@@ -20,7 +22,8 @@ new PlayerData[MAX_PLAYERS][jInfo];
 new 
     bool:MakingTutorial[MAX_PLAYERS];
 
-new 
+
+new /*# Vars - Introduccion #*/
     ActorIntro[3], FireObj[9], fExtra[3], VehEngine[1],
     Text:tdError[3], Text:tdSVName[2];
 
@@ -53,6 +56,10 @@ new const AnimLibs[][] = {
   "TRUCK",        "UZI",          "VAN",          "VENDING",      "VORTEX",
   "WAYFARER",     "WEAPONS",      "WOP",          "WUZI"
 };
+
+#define COUNTRY_AMS "Argentina\nBolivia\nBrasil\nChile\nColombia\nEcuador\nParaguay\nPerú\nUruguay\nVenezuela"
+#define COUNTRY_AMN "Canada\nCosta Rica\nCuba\nEl Salvador\nEstados Unidos\nGuatemala\nHonduras\nMexico\nNicaragua\nPanama\nPuerto Rico\nRepublica Dominicana"
+
 
 /*======================================================================*/
 

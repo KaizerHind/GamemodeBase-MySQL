@@ -170,12 +170,12 @@ public OnPlayerEnterCheckpoint(playerid)
 
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
-	new VarAge = strval(inputtext), stcstring[300+1];
+	new VarAge = strval(inputtext);
 
 	switch(dialogid){
 		case dLogin:
 		{
-			if(!response) return Kick(playerid);
+			if(!response)
 			{
 				new megahash[64 + 1];
 				SHA256_PassHash(inputtext, "123h1h23hh", megahash, 64);
@@ -197,11 +197,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SHA256_PassHash(inputtext, "123h1h23hh", PlayerData[playerid][TempHash], 64);
                 ShowPlayerDialog(playerid, dGender, DIALOG_STYLE_MSGBOX, mHeader, ""#CBLANCO"Cuentanos; ¿Eres un Hombre o una Mujer?", "Masculino", "Femenino");
             }
-            else Kick(playerid);
         }
 		case dGender:
 		{
-		    if(!response) return Kick(playerid);
+		    if(response)
 			{
 				PlayerData[playerid][jSexo] = 1;
 				PlayerData[playerid][jRopa] = 46;
@@ -211,32 +210,70 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				PlayerData[playerid][jSexo] = 2;
 				PlayerData[playerid][jRopa] = 12;
 			}
-			new str[150];
-			format(str, sizeof(str), ""#CBLANCO"Muy bien %s!\nAhora cuentanos. ¿Que edad tienes?", PlayerName(playerid), str);
-			ShowPlayerDialog(playerid, dEdad, DIALOG_STYLE_INPUT, mHeader, str, "Aceptar", "Cancelar");
+			new strAge[120+1];
+			format(strAge, sizeof(strAge), ""#CBLANCO"Muy bien %s!\nAhora cuentanos. ¿Que edad tienes?", PlayerName(playerid), strAge);
+			ShowPlayerDialog(playerid, dEdad, DIALOG_STYLE_INPUT, mHeader, strAge, "Aceptar", "Cancelar");
 		}
 		case dEdad:
 		{
 			if(!response) return Kick(playerid);
-			format(stcstring, sizeof(stcstring), ""#CNAMESV"%s"#CBLANCO"; Solo puedes ingresar "#CROJO"valores numericos"#CBLANCO".\nLa edad minima es de "#CROJO"<13> "#CBLANCO"y la maxima "#CROJO"<85>"#CBLANCO".\n\nPor favor ingresa una "#CROJO"Edad"#CBLANCO" Valida.\n¿Qué "#CROJO"edad "#CBLANCO"tienes? Cuentanos.", PlayerName(playerid), stcstring);
-		    if(!IsNumeric(inputtext)) return ShowPlayerDialog(playerid, dEdad, DIALOG_STYLE_INPUT, ""#CBLANCO"A Continuación dinos tu edad.\t", stcstring, "Aceptar", "Cancelar");
-			if(strval(inputtext) < 13) return ShowPlayerDialog(playerid, dEdad, DIALOG_STYLE_INPUT, ""#CBLANCO"A Continuación dinos tu edad.\t", stcstring, "Aceptar", "Cancelar");
-			if(VarAge < 13 || VarAge > 85) return ShowPlayerDialog(playerid, dEdad, DIALOG_STYLE_INPUT, ""#CBLANCO"A Continuación dinos tu edad.\t", stcstring, "Aceptar", "Cancelar");
+			format(global_str, sizeof(global_str), ""#CNAMESV"%s"#CBLANCO"; Solo puedes ingresar "#CAMARILLO"valores numericos"#CBLANCO".\nLa edad minima es de "#CAMARILLO"<13> "#CBLANCO"y la maxima de "#CAMARILLO"<50>"#CBLANCO".\n\nPor favor ingresa una "#CAMARILLO"Edad Valida"#CBLANCO".\n¿Qué edad tienes? Cuentanos.", PlayerName(playerid), global_str);
+		    if(!IsNumeric(inputtext)) return ShowPlayerDialog(playerid, dEdad, DIALOG_STYLE_INPUT, ""#CBLANCO"A Continuación dinos tu edad.\t", global_str, "Aceptar", "Cancelar");
+			if(strval(inputtext) < 13) return ShowPlayerDialog(playerid, dEdad, DIALOG_STYLE_INPUT, ""#CBLANCO"A Continuación dinos tu edad.\t", global_str, "Aceptar", "Cancelar");
+			if(VarAge < 13 || VarAge > 50) return ShowPlayerDialog(playerid, dEdad, DIALOG_STYLE_INPUT, ""#CBLANCO"A Continuación dinos tu edad.\t", global_str, "Aceptar", "Cancelar");
 
 			PlayerData[playerid][jEdad] = VarAge;
-			ShowPlayerDialog(playerid, dFinish, DIALOG_STYLE_MSGBOX, mHeader, ""#CVERDE"Registro Finalizado; "#CBLANCO"Recuerda cumplir las\nnormas o podrias ser sancionado.", "Continuar", "");
+			format(global_str, sizeof(global_str), ""#CBLANCO"Excelente %s! Ya queda muy poco; A Continuacion deberas escoger\nuna "#CAMARILLO"Nacionalidad"#CBLANCO", de acuerdo a tu personaje, esta puede ser\ntu nacionalidad IC, como OOC.", PlayerName(playerid));
+			ShowPlayerDialog(playerid, dAlertCountry, DIALOG_STYLE_MSGBOX, mHeader, global_str, "Aceptar", "Cancelar");
+			
 		}
+		case dAlertCountry:
+		{
+			if(!response) return Kick(playerid);
+			ShowPlayerDialog(playerid, dCountry, DIALOG_STYLE_LIST, mHeader, "America del Sur.\nAmerica Del Norte.", "Aceptar", "Cancelar");
+		}
+
+		case dCountry:
+		{
+		    if(!response) return 0;
+		    switch(listitem)
+		    {
+				case 0:
+				{
+					ShowPlayerDialog(playerid, dCountryAMS, DIALOG_STYLE_LIST, mHeader, COUNTRY_AMS, "Seleccionar", "");
+					printf("Seleccionaste: %s", COUNTRY_AMS);
+				}
+				case 1:
+				{
+					ShowPlayerDialog(playerid, dCountryAMS, DIALOG_STYLE_LIST, mHeader, COUNTRY_AMS, "Seleccionar", "");
+				}
+			}
+		}
+
+		case dCountryAMS:
+		{
+		    if(!response) return 1;
+		    ShowPlayerDialog(playerid, dFinish, DIALOG_STYLE_MSGBOX, mHeader, ""#CVERDE"Registro Finalizado; "#CBLANCO"Recuerda cumplir las\nnormas o podrias ser sancionado.", "Continuar", "");
+		}
+		case dCountryAMN:
+		{
+		    if(!response) return 1;
+		    ShowPlayerDialog(playerid, dFinish, DIALOG_STYLE_MSGBOX, mHeader, ""#CVERDE"Registro Finalizado; "#CBLANCO"Recuerda cumplir las\nnormas o podrias ser sancionado.", "Continuar", "");
+		}
+
+		//ShowPlayerDialog(playerid, dFinish, DIALOG_STYLE_MSGBOX, mHeader, ""#CVERDE"Registro Finalizado; "#CBLANCO"Recuerda cumplir las\nnormas o podrias ser sancionado.", "Continuar", "");
 		case dFinish:
 		{
 			if(response)
 			{
-				mysql_format(DB, global_str, sizeof global_str, "INSERT INTO users (Name, Password, Ropa, Sexo, Edad, Score) VALUES ('%e', '%e', '%i', '%i', '%i', '5')",
+				mysql_format(DB, global_str, sizeof global_str, "INSERT INTO users (Name, Password, Ropa, Sexo, Edad, Score, Ciudad) VALUES ('%e', '%e', '%i', '%i', '%i', '5', '%e')",
 				PlayerName(playerid),
 				PlayerData[playerid][TempHash],
 				PlayerData[playerid][jSexo],
 				PlayerData[playerid][jRopa],
 				PlayerData[playerid][jEdad],
-				PlayerData[playerid][jScore]);
+				PlayerData[playerid][jScore],
+				PlayerData[playerid][jCiudad]);
 				mysql_query(DB, global_str);
 
 				printf("- %s Se ha registrado por Primera vez en el Servidor.\nPasara a mirar la Introduccion..", PlayerName(playerid));
@@ -314,6 +351,7 @@ forward PlayerIngreso(playerid); public PlayerIngreso(playerid)
         cache_get_value_int(0, "Ropa", PlayerData[playerid][jRopa]);
         cache_get_value_int(0, "Sexo", PlayerData[playerid][jSexo]);
 		cache_get_value_int(0, "Score", PlayerData[playerid][jScore]);
+		cache_get_value_int(0, "Score", PlayerData[playerid][jCiudad]);
 
 		SetPlayerScore(playerid, PlayerData[playerid][jScore]);
 
