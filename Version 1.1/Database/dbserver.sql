@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-09-2022 a las 05:32:29
+-- Tiempo de generación: 18-04-2023 a las 07:53:43
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.34
 
@@ -33,11 +33,13 @@ CREATE TABLE `users` (
   `Password` varchar(65) NOT NULL,
   `Ropa` int(3) NOT NULL,
   `Sexo` int(11) NOT NULL,
-  `Score` int(4) NOT NULL
+  `Edad` int(2) NOT NULL,
+  `Score` int(4) NOT NULL,
+  `Ciudad` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Ýndices para tablas volcadas
+-- Índices para tablas volcadas
 --
 
 --
