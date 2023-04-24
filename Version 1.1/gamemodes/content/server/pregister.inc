@@ -28,8 +28,8 @@ public OnGameModeInit()
 
 
 	/* ############### DON TOUCH ############### */
-	#if defined entry_OnGameModeInit
-		return entry_OnGameModeInit();
+	#if defined pregister_OnGameModeInit
+		return pregister_OnGameModeInit();
 	#else
 		return 1;
 	#endif
@@ -41,9 +41,9 @@ public OnGameModeInit()
 	#define _ALS_OnGameModeInit
 #endif
 
-#define OnGameModeInit entry_OnGameModeInit
-#if defined entry_OnGameModeInit
-	forward entry_OnGameModeInit();
+#define OnGameModeInit pregister_OnGameModeInit
+#if defined pregister_OnGameModeInit
+	forward pregister_OnGameModeInit();
 #endif
 
 
@@ -54,8 +54,8 @@ public OnGameModeExit()
     }
     mysql_close(DB);
 	/* ############### DON TOUCH ############### */
-	#if defined entry_OnGameModeExit
-		return entry_OnGameModeExit();
+	#if defined pregister_OnGameModeExit
+		return pregister_OnGameModeExit();
 	#else
 		return 0;
 	#endif
@@ -67,9 +67,9 @@ public OnGameModeExit()
 	#define _ALS_OnGameModeExit
 #endif
 
-#define OnGameModeExit entry_OnGameModeExit
-#if defined entry_OnGameModeExit
-	forward entry_OnGameModeExit();
+#define OnGameModeExit pregister_OnGameModeExit
+#if defined pregister_OnGameModeExit
+	forward pregister_OnGameModeExit();
 #endif
 
 
@@ -77,8 +77,8 @@ public OnPlayerSpawn(playerid)
 {
     if(GetPVarInt(playerid, "Logueado") == 0) {Kick(playerid);}
 	/* ############### DON TOUCH ############### */
-	#if defined entry_OnPlayerSpawn
-		return entry_OnPlayerSpawn(playerid);
+	#if defined pregister_OnPlayerSpawn
+		return pregister_OnPlayerSpawn(playerid);
 	#else
 		return 1;
 	#endif
@@ -90,9 +90,9 @@ public OnPlayerSpawn(playerid)
 	#define _ALS_OnPlayerSpawn
 #endif
 
-#define OnPlayerSpawn entry_OnPlayerSpawn
-#if defined entry_OnPlayerSpawn
-	forward entry_OnPlayerSpawn(playerid);
+#define OnPlayerSpawn pregister_OnPlayerSpawn
+#if defined pregister_OnPlayerSpawn
+	forward pregister_OnPlayerSpawn(playerid);
 #endif
 
 
@@ -105,8 +105,8 @@ public OnPlayerConnect(playerid)
 	mysql_tquery(DB, global_str, "OnPlayerDataCheck", "d", playerid);
 	
 	/* ############### DON TOUCH ############### */
-	#if defined entry_OnPlayerConnect
-		return entry_OnPlayerConnect(playerid);
+	#if defined pregister_OnPlayerConnect
+		return pregister_OnPlayerConnect(playerid);
 	#else
 		return 1;
 	#endif
@@ -118,9 +118,29 @@ public OnPlayerConnect(playerid)
 	#define _ALS_OnPlayerConnect
 #endif
 
-#define OnPlayerConnect entry_OnPlayerConnect
-#if defined entry_OnPlayerConnect
-	forward entry_OnPlayerConnect(playerid);
+#define OnPlayerConnect pregister_OnPlayerConnect
+#if defined pregister_OnPlayerConnect
+	forward pregister_OnPlayerConnect(playerid);
+#endif
+
+public OnPlayerDisconnect(playerid)
+{
+    
+    #if defined pregister_OnPlayerDisconnect
+        return pregister_OnPlayerDisconnect(playerid);
+    #else
+        return 1;
+    #endif
+}
+#if defined _ALS_OnPlayerDisconnect
+    #undef OnPlayerDisconnect
+#else
+    #define _ALS_OnPlayerDisconnect
+#endif
+
+#define OnPlayerDisconnect pregister_OnPlayerDisconnect
+#if defined pregister_OnPlayerDisconnect
+    forward pregister_OnPlayerDisconnect(playerid);
 #endif
 
 CALLBACK:OnPlayerDataCheck(playerid){
@@ -136,37 +156,15 @@ CALLBACK:OnPlayerDataCheck(playerid){
 		cache_get_value_name(0, "Password", hash);
 		format(PlayerData[playerid][jPass], 65, "%s", hash);
 		
-		format(global_str, sizeof(global_str), "\n\n\t\t¡Bienvenido de nuevo %s!.\n____________________________________\n\tTu ultima conexion fue el ><.\n\nIngresa tu contraseña para entrar al Servidor. Sino eres el propietario de dicha cuenta, te invitamos a reloguear con otro nombre que este disponible.", PlayerName(playerid));
-		ShowPlayerDialog(playerid, dLogin, DIALOG_STYLE_PASSWORD, mHeader, global_str, ""#CBLANCO"Aceptar", ""#CBLANCO"Salir");
+		format(global_str2, sizeof(global_str2), "\n\n\t\t"#CBLANCO"¡Bienvenido de nuevo %s!.\n__________________________________________________________\nTu ultima conexion fue el: ><\n\nIngresa tu contraseña para entrar al Servidor.\n\nSino eres el propietario de dicha cuenta, te\ninvitamos a reloguear con otro nombre que este disponible.", PlayerName(playerid));
+		ShowPlayerDialog(playerid, dLogin, DIALOG_STYLE_PASSWORD, mHeader, global_str2, ""#CBLANCO"Aceptar", ""#CBLANCO"Salir");
 	}else{
 		ClearChat(playerid, 100);
-		format(global_str, sizeof(global_str), ""#CBLANCO"Bienvenido a "#CNAMESV""#SERVER_NAME" "#CBLANCO"%s!\n\nAl Finalizar realizaras un pequeño Test para determinar tu nivel de Rol.\nEsperamos te diviertas dentro de la Comunidad, no olvides respetar las Reglas\ny jugar de manera sana, cualquier falta puede conllevar a una sancion.\n\nSin nada mas que decir; Procedamos a tomar tus datos.\n\nIngresa una contraseña para registrar tu cuenta.", PlayerName(playerid));
-		ShowPlayerDialog(playerid, dRegistro, DIALOG_STYLE_PASSWORD, mHeader, global_str, ""#CBLANCO"Aceptar", ""#CBLANCO"Salir");
+		format(global_str2, sizeof(global_str2), ""#CBLANCO"Bienvenido a "#CNAMESV""#SERVER_NAME" "#CBLANCO"%s!\n\nAl Finalizar realizaras un pequeño Test para determinar tu nivel de Rol.\nEsperamos te diviertas dentro de la Comunidad, no olvides respetar las Reglas\ny jugar de manera sana, cualquier falta puede conllevar a una sancion.\n\nSin nada mas que decir; Procedamos a tomar tus datos.\n\nIngresa una contraseña para registrar tu cuenta.", PlayerName(playerid));
+		ShowPlayerDialog(playerid, dRegistro, DIALOG_STYLE_PASSWORD, mHeader, global_str2, ""#CBLANCO"Aceptar", ""#CBLANCO"Salir");
 	}
 	return 1;
 }
-
-public OnPlayerEnterCheckpoint(playerid)
-{
-
-	/* ############### DON TOUCH ############### */
-	#if defined entry_OnPlayerEnterCheckpoint
-		return entry_OnPlayerEnterCheckpoint(playerid);
-	#else
-		return 1;
-	#endif
-}
-
-#if defined _ALS_OnPlayerEnterCheckpoint
-	#undef OnPlayerEnterCheckpoint
-#else
-	#define _ALS_OnPlayerEnterCheckpoint
-#endif
-
-#define OnPlayerEnterCheckpoint entry_OnPlayerEnterCheckpoint
-#if defined entry_OnPlayerEnterCheckpoint
-	forward entry_OnPlayerEnterCheckpoint(playerid);
-#endif
 
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
@@ -175,7 +173,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	switch(dialogid){
 		case dLogin:
 		{
-			if(!response)
+			if(response)
 			{
 				new megahash[64 + 1];
 				SHA256_PassHash(inputtext, "123h1h23hh", megahash, 64);
@@ -230,10 +228,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		case dAlertCountry:
 		{
 			if(!response) return Kick(playerid);
-			ShowPlayerDialog(playerid, dCountry, DIALOG_STYLE_LIST, mHeader, "America del Sur.\nAmerica Del Norte.", "Aceptar", "Cancelar");
+			ShowPlayerDialog(playerid, dFinish, DIALOG_STYLE_MSGBOX, mHeader, ""#CVERDE"Registro Finalizado; "#CBLANCO"Recuerda cumplir las\nnormas o podrias ser sancionado.", "Continuar", "");
+			//ShowPlayerDialog(playerid, dCountry, DIALOG_STYLE_LIST, mHeader, "America del Sur.\nAmerica Del Norte.", "Aceptar", "Cancelar");
 		}
 
-		case dCountry:
+		/*case dCountry:
 		{
 		    if(!response) return 0;
 		    switch(listitem)
@@ -260,24 +259,27 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    if(!response) return 1;
 		    ShowPlayerDialog(playerid, dFinish, DIALOG_STYLE_MSGBOX, mHeader, ""#CVERDE"Registro Finalizado; "#CBLANCO"Recuerda cumplir las\nnormas o podrias ser sancionado.", "Continuar", "");
 		}
+		*/
 
 		//ShowPlayerDialog(playerid, dFinish, DIALOG_STYLE_MSGBOX, mHeader, ""#CVERDE"Registro Finalizado; "#CBLANCO"Recuerda cumplir las\nnormas o podrias ser sancionado.", "Continuar", "");
 		case dFinish:
 		{
 			if(response)
 			{
-				mysql_format(DB, global_str, sizeof global_str, "INSERT INTO users (Name, Password, Ropa, Sexo, Edad, Score, Ciudad) VALUES ('%e', '%e', '%i', '%i', '%i', '5', '%e')",
+				mysql_format(DB, global_str, sizeof global_str, "INSERT INTO users (Name, Password, Ropa, Sexo, Edad, Score, Salud, Armadura) VALUES ('%e', '%e', '%i', '%i', '%i', '5', '100', '0')",
 				PlayerName(playerid),
 				PlayerData[playerid][TempHash],
 				PlayerData[playerid][jSexo],
 				PlayerData[playerid][jRopa],
 				PlayerData[playerid][jEdad],
 				PlayerData[playerid][jScore],
-				PlayerData[playerid][jCiudad]);
+				PlayerData[playerid][jHealth],
+				PlayerData[playerid][jArmour]);
 				mysql_query(DB, global_str);
 
 				printf("- %s Se ha registrado por Primera vez en el Servidor.\nPasara a mirar la Introduccion..", PlayerName(playerid));
-				StartIntro(playerid);
+				FinishedIntro(playerid);
+				//StartIntro(playerid);
 			}
 			else
 			{
@@ -286,8 +288,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		}
 	}
 	/* ############### DON TOUCH ############### */
-	#if defined entry_OnDialogResponse
-		return entry_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]);
+	#if defined pregister_OnDialogResponse
+		return pregister_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]);
 	#else
 		return 1;
 	#endif
@@ -299,9 +301,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	#define _ALS_OnDialogResponse
 #endif
 
-#define OnDialogResponse entry_OnDialogResponse
-#if defined entry_OnDialogResponse
-	forward entry_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]);
+#define OnDialogResponse pregister_OnDialogResponse
+#if defined pregister_OnDialogResponse
+	forward pregister_OnDialogResponse(playerid, dialogid, response, listitem, inputtext[]);
 #endif
 
 public OnPlayerClickTextDraw(playerid, Text:clickedid)
@@ -321,8 +323,8 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		}
     }*/
 	/* ############### DON TOUCH ############### */
-	#if defined entry_OnPlayerClickTextDraw
-		return entry_OnPlayerClickTextDraw(playerid, Text:clickedid);
+	#if defined pregister_OnPlayerClickTextDraw
+		return pregister_OnPlayerClickTextDraw(playerid, Text:clickedid);
 	#else
 		return 1;
 	#endif
@@ -334,9 +336,9 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 	#define _ALS_OnPlayerClickTextDraw
 #endif
 
-#define OnPlayerClickTextDraw entry_OnPlayerClickTextDraw
-#if defined entry_OnPlayerClickTextDraw
-	forward entry_OnPlayerClickTextDraw(playerid, Text:clickedid);
+#define OnPlayerClickTextDraw pregister_OnPlayerClickTextDraw
+#if defined pregister_OnPlayerClickTextDraw
+	forward pregister_OnPlayerClickTextDraw(playerid, Text:clickedid);
 #endif
 
 forward PlayerIngreso(playerid); public PlayerIngreso(playerid) 
@@ -348,12 +350,15 @@ forward PlayerIngreso(playerid); public PlayerIngreso(playerid)
     }
     else
     {
-        cache_get_value_int(0, "Ropa", PlayerData[playerid][jRopa]);
-        cache_get_value_int(0, "Sexo", PlayerData[playerid][jSexo]);
+		cache_get_value_int(0, "Ropa", PlayerData[playerid][jRopa]);
+		cache_get_value_int(0, "Sexo", PlayerData[playerid][jSexo]);
 		cache_get_value_int(0, "Score", PlayerData[playerid][jScore]);
-		cache_get_value_int(0, "Score", PlayerData[playerid][jCiudad]);
+		cache_get_value_float(0, "Salud", PlayerData[playerid][jHealth]);
+		cache_get_value_float(0, "Armadura", PlayerData[playerid][jArmour]);
 
 		SetPlayerScore(playerid, PlayerData[playerid][jScore]);
+		SetPlayerHealth(playerid, PlayerData[playerid][jHealth]);
+		SetPlayerArmour(playerid, PlayerData[playerid][jArmour]);
 
         SetPVarInt(playerid, "Logueado", 1);
         AccountLoaded(playerid);
@@ -397,7 +402,7 @@ forward StartBox4(playerid); public StartBox4(playerid){
 
 forward StartBox5(playerid); public StartBox5(playerid){NotiBox(playerid, "Historia", "Debido a que no tienes empleo, deberas buscar uno nuevo."); return 1;}
 
-/*forward FinishedIntro(playerid);
+forward FinishedIntro(playerid);
 public FinishedIntro(playerid)
 {
 	//SetTimerEx("FinishedIntro", 30, false, "d", playerid);
@@ -411,20 +416,11 @@ public FinishedIntro(playerid)
 	SetPVarInt(playerid, "Logueado", 1);
 
 	//Stats
-	SetPlayerScore(playerid, 1);
+	SetPlayerScore(playerid, PlayerData[playerid][jScore] = 5);
 
 	SetSpawnInfo(playerid, 0, PlayerData[playerid][jRopa], 1397.3853, -1577.9474, 14.4706, 0.0, 0, 0, 0, 0, 0, 0);
 	SpawnPlayer(playerid);
 	return 1;
-}*/
-
-stock SavePlayer(playerid){
-    mysql_format(DB, global_str, sizeof(global_str), "UPDATE users SET Score = %d WHERE ID = %d LIMIT 1",
-    PlayerData[playerid][jScore],
-    PlayerData[playerid][ID]);
-
-    mysql_tquery(DB, global_str);
-    return 1;
 }
 
 StartIntro(playerid)
@@ -432,4 +428,15 @@ StartIntro(playerid)
 	PlayerFreeze(playerid, 30);
 	SetTimerEx("StartingIntro", 0, false, "d", playerid);
 	return 1;
+}
+
+stock SavePlayer(playerid){
+    mysql_format(DB, global_str, sizeof(global_str), "UPDATE users SET Score = %d, Vida= %f, Chaleco=%f WHERE ID = %d LIMIT 1",
+    PlayerData[playerid][jScore],
+	PlayerData[playerid][jHealth],
+	PlayerData[playerid][jArmour],
+    PlayerData[playerid][ID]);
+
+    mysql_tquery(DB, global_str);
+    return 1;
 }

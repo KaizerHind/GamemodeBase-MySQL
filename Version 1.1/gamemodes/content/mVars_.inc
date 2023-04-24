@@ -4,24 +4,26 @@ enum jInfo
     ID,
     jName[25],
     jPass[64 + 1],
-	TempHash[64 + 1],
+    TempHash[64 + 1],
     jRopa,
     jSexo,
     jEdad,
     jScore,
-    jCiudad
+    jCiudad,
+    Float:jHealth,
+    Float:jArmour
 }
 
-new /*# Global Vars #*/
+new	/*# Global Vars #*/
 	MySQL:DB,
 	global_str[1024],
-    hash[64 + 1];
+    global_str2[1024],
+	hash[64 + 1];
 
 new PlayerData[MAX_PLAYERS][jInfo];
 
 new 
     bool:MakingTutorial[MAX_PLAYERS];
-
 
 new /*# Vars - Introduccion #*/
     ActorIntro[3], FireObj[9], fExtra[3], VehEngine[1],
