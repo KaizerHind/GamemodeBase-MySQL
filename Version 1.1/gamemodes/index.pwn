@@ -29,7 +29,8 @@
 #include	"content/mVars_.inc"
 
 /* ==# Funcs Modules #== */
-#include	"content/modules/entry.inc"
+#include	"content/server/pregister.inc"
 #include	"content/designs/textdraws.inc"
-#include	"content/functions/stocks.inc"
+#include    "content/cmds/p_commands.inc"
+#include	"content/server/utils.inc"
 #include	"content/designs/maps.inc"
